@@ -1,23 +1,24 @@
 ﻿using RuleEngine.Base;
 using RuleEngineTests.MockImplementation.Conditions;
+using RuleEngineTests.MockImplementation.Entities;
 
 namespace RuleEngineTests.MockImplementation.Rules
 {
-    internal class IntegerGreaterThanRule : BaseRule<int>
+    internal class StateTransitionRule : BaseRule<GameStateTransition>
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="IntegerGreaterThanRule"/> class.
+        /// Initializes a new instance of the <see cref="StateTransitionRule"/> class.
         /// </summary>
-        public IntegerGreaterThanRule() : base() { }
+        public StateTransitionRule() : base() { }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="IntegerGreaterThanRule"/> class.
+        /// Initializes a new instance of the <see cref="StateTransitionRule"/> class.
         /// </summary>
         /// <param name="threshold">The threshold.</param>
         /// <param name="actual">The actual.</param>
-        public IntegerGreaterThanRule(int threshold, int actual)
+        public StateTransitionRule(GameStateTransition threshold, GameStateTransition actual)
             : this()
         {
             Initialize(threshold, actual);
@@ -32,16 +33,18 @@ namespace RuleEngineTests.MockImplementation.Rules
         /// </summary>
         /// <param name="threshold">The threshold value to check value against.</param>
         /// <param name="actual">The actualvalue to check.</param>
-        public override void Initialize(int threshold, int actual)
+        public override void Initialize(GameStateTransition threshold, GameStateTransition actual)
         {
             // Clear any existing conditions
             Conditions.Clear();
 
             // Create our conditions
-            var condition1 = new IntegerGreaterThanCondition(threshold, actual);
+            var condition1 = new IntegerEqualToCondition((int)threshold.TransitionFrom, (int)actual.TransitionFrom);
+            var condition2 = new IntegerEqualToCondition((int)threshold.TransitionTo, (int)actual.TransitionTo);
 
             // ...and add them to our collection of conditions
             Conditions.Add(condition1);
+            Conditions.Add(condition2);
         }
 
         /// <summary>
@@ -50,7 +53,7 @@ namespace RuleEngineTests.MockImplementation.Rules
         /// <returns></returns>
         public override bool MatchConditions()
         {
-            return base.MatchesAnyCondition();
+            return base.MatchAllConditions();
         }
 
         #endregion
