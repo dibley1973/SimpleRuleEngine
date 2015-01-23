@@ -53,6 +53,7 @@
     <Compile Include="IntegerTests.cs" />
     <Compile Include="MockImplementation\Conditions\IntegerEqualToCondition.cs" />
     <Compile Include="MockImplementation\Conditions\IntegerGreaterThanCondition.cs" />
+    <Compile Include="MockImplementation\Conditions\StateTransitionCondition.cs" />
     <Compile Include="MockImplementation\Entities\GameState.cs" />
     <Compile Include="MockImplementation\Entities\GameStateTransition.cs" />
     <Compile Include="MockImplementation\Rules\IntegerGreaterThanEqualToRule.cs" />

@@ -17,11 +17,13 @@ namespace RuleEngineTests
             int actual = 10;
 
             // ACT
-            var integerRule = new IntegerGreaterThanRule();
-            integerRule.Initialize(threshold, actual);
+            var integerRule = new IntegerGreaterThanRule(threshold);
 
             var integerRuleEngine = new RuleEngine<int>();
+            integerRuleEngine.ActualValue = actual;
             integerRuleEngine.Add(integerRule);
+
+            // Get the result
             var result = integerRuleEngine.MatchAll();
 
             // ASSERT
@@ -36,11 +38,13 @@ namespace RuleEngineTests
             int actual = 5;
 
             // ACT
-            var integerRule = new IntegerGreaterThanRule();
-            integerRule.Initialize(threshold, actual);
+            var integerRule = new IntegerGreaterThanRule(threshold);
 
             var integerRuleEngine = new RuleEngine<int>();
+            integerRuleEngine.ActualValue = actual;
             integerRuleEngine.Add(integerRule);
+
+            // Get the result
             var result = integerRuleEngine.MatchAll();
 
 
@@ -56,17 +60,48 @@ namespace RuleEngineTests
             int actual = 3;
 
             // ACT
-            var integerRule = new IntegerGreaterThanRule();
-            integerRule.Initialize(threshold, actual);
+            var integerRule = new IntegerGreaterThanRule(threshold);
 
             var integerRuleEngine = new RuleEngine<int>();
+            integerRuleEngine.ActualValue = actual;
             integerRuleEngine.Add(integerRule);
+
+            // Get the result
             var result = integerRuleEngine.MatchAll();
 
 
             // ASSERT
             Assert.IsFalse(result);
         }
+
+
+        [TestMethod]
+        public void GreaterThanRule_MultipleValuesWhenGreater_ResultsTrueForAll()
+        {
+            // ARRANGE
+            int threshold = 5;
+            int actual1 = 7;
+            int actual2 = 10;
+
+            // ACT
+            var integerRule = new IntegerGreaterThanRule(threshold);
+
+            var integerRuleEngine = new RuleEngine<int>();
+            integerRuleEngine.Add(integerRule);
+
+            // Set the first actual and get the result
+            integerRuleEngine.ActualValue = actual1;
+            var result1 = integerRuleEngine.MatchAll();
+
+            // Set the second actual and get the result
+            integerRuleEngine.ActualValue = actual2;
+            var result2 = integerRuleEngine.MatchAll();
+
+            // ASSERT
+            Assert.IsTrue(result1);
+            Assert.IsTrue(result2);
+        }
+
 
         #endregion
 
@@ -80,11 +115,13 @@ namespace RuleEngineTests
             int actual = 10;
 
             // ACT
-            var integerRule = new IntegerGreaterThanEqualToRule();
-            integerRule.Initialize(threshold, actual);
+            var integerRule = new IntegerGreaterThanEqualToRule(threshold);
 
             var integerRuleEngine = new RuleEngine<int>();
+            integerRuleEngine.ActualValue = actual;
             integerRuleEngine.Add(integerRule);
+
+            // Get the result
             var result = integerRuleEngine.MatchAny();
 
             // ASSERT
@@ -99,11 +136,14 @@ namespace RuleEngineTests
             int actual = 5;
 
             // ACT
-            var integerRule = new IntegerGreaterThanEqualToRule();
-            integerRule.Initialize(threshold, actual);
+            var integerRule = new IntegerGreaterThanEqualToRule(threshold);
+            //integerRule.Initialize(threshold, actual);
 
             var integerRuleEngine = new RuleEngine<int>();
+            integerRuleEngine.ActualValue = actual;
             integerRuleEngine.Add(integerRule);
+
+            // Get the result
             var result = integerRuleEngine.MatchAny();
 
             // ASSERT
@@ -118,11 +158,13 @@ namespace RuleEngineTests
             int actual = 3;
 
             // ACT
-            var integerRule = new IntegerGreaterThanEqualToRule();
-            integerRule.Initialize(threshold, actual);
+            var integerRule = new IntegerGreaterThanEqualToRule(threshold);
 
             var integerRuleEngine = new RuleEngine<int>();
+            integerRuleEngine.ActualValue = actual;
             integerRuleEngine.Add(integerRule);
+
+            // Get the result
             var result = integerRuleEngine.MatchAny();
 
             // ASSERT

@@ -12,16 +12,17 @@ namespace RuleEngine.Contracts
         void ClearConditions();
 
         /// <summary>
-        /// Initializes the object with the specified threshold and value.
-        /// </summary>
-        /// <param name="threshold">The threshold to check value against.</param>
-        /// <param name="value">The value to check.</param>
-        void Initialize(T threshold, T value);
-
-        /// <summary>
         /// Matches the conditions.
         /// </summary>
-        /// <returns></returns>
+        /// <returns><c>true</c> if the conditions are met for the specified value</returns>
         bool MatchConditions();
+
+        /// <summary>
+        /// Gets or sets the value to apply the rule against.
+        /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
+        T Value { get; set; }
     }
 }

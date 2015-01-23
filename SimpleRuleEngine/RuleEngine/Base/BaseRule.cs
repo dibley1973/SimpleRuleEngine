@@ -12,12 +12,28 @@ namespace RuleEngine.Base
         #region Properties
 
         /// <summary>
+        /// Gets or sets the value to apply the rule against.
+        /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
+        public T Value { get; set; }
+
+        /// <summary>
         /// Gets (or privately sets) the conditions which applies to the rule.
         /// </summary>
         /// <value>
         /// The conditions.
         /// </value>
-        public IList<ICondition> Conditions { get; private set; }
+        public IList<ICondition<T>> Conditions { get; private set; }
+
+        /// <summary>
+        /// Gets (or privately sets) the threshold.
+        /// </summary>
+        /// <value>
+        /// The threshold.
+        /// </value>
+        protected T Threshold { get; private set; }
 
         #endregion
 
@@ -26,10 +42,13 @@ namespace RuleEngine.Base
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseRule{T}"/> class.
         /// </summary>
-        protected BaseRule()
-        { 
+        protected BaseRule(T threshold)
+        {
+            // Set the threshold
+            Threshold = threshold;
+
             // Instantiate the conditions collection
-            Conditions = new List<ICondition>();
+            Conditions = new List<ICondition<T>>();
         }
 
         #endregion
@@ -45,20 +64,14 @@ namespace RuleEngine.Base
         }
 
         /// <summary>
-        /// Initializes the object with the specified threshold and value.
+        /// Initializes this instance.
         /// </summary>
-        /// <param name="threshold">The threshold value to check value against.</param>
-        /// <param name="actual">The actualvalue to check.</param>
-        /// <exception cref="System.NotImplementedException"></exception>
-        public virtual void Initialize(T threshold, T actual)
-        {
-            throw new System.NotImplementedException();
-        }
+        public virtual void Initialize() { }
 
         /// <summary>
         /// Matches the conditions. 
         /// </summary>
-        /// <returns></returns>
+        /// <returns><c>true</c> if the conditions are met for the specified value</returns>
         /// <remarks>Override this to call with rule specific implementation. 
         /// For example through to one of the protected methods "MatchAllConditions" 
         /// or "MatchesAnyCondition"
@@ -72,7 +85,7 @@ namespace RuleEngine.Base
         /// <summary>
         /// Matches all of the rules.
         /// </summary>
-        /// <returns></returns>
+        /// <returns><c>true</c> if all of the conditions are met for the specified value</returns>
         protected bool MatchAllConditions()
         {
             // We could use a lambda for ease, however in my case this project 
@@ -83,8 +96,11 @@ namespace RuleEngine.Base
             bool isValid = true;
 
             // Start checking the conditions for any failures
-            foreach (ICondition condition in Conditions)
+            foreach (ICondition<T> condition in Conditions)
             {
+                // Set the value
+                condition.Value = Value;
+
                 if (!condition.IsSatisfied)
                 {
                     // We have a failure so set flag...
@@ -102,8 +118,7 @@ namespace RuleEngine.Base
         /// <summary>
         /// Matcheses any of the rules.
         /// </summary>
-        /// <returns></returns>
-        /// <exception cref="System.NotImplementedException"></exception>
+        /// <returns><c>true</c> if any of the conditions are met for the specified value</returns>
         protected bool MatchesAnyCondition()
         {
             // We could use a lambda for ease, however in my case this project 
@@ -114,8 +129,11 @@ namespace RuleEngine.Base
             bool isValid = false;
 
             // Start checking the conditions for any failures
-            foreach (ICondition condition in Conditions)
+            foreach (ICondition<T> condition in Conditions)
             {
+                // Set the value
+                condition.Value = Value;
+
                 if (condition.IsSatisfied)
                 {
                     // We have a pass so set flag...

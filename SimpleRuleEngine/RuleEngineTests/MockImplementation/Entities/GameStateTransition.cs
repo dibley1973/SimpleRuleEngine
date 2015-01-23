@@ -1,7 +1,8 @@
-﻿
+﻿using System;
+
 namespace RuleEngineTests.MockImplementation.Entities
 {
-    public class GameStateTransition
+    public class GameStateTransition : IEquatable<GameStateTransition>
     {
         #region Properties
 
@@ -35,6 +36,22 @@ namespace RuleEngineTests.MockImplementation.Entities
         {
             TransitionFrom = transitionFrom;
             TransitionTo = transitionTo;
+        }
+
+        #endregion
+
+        #region IEquatable<GameStateTransition> Members
+
+        /// <summary>
+        /// Determines whether the specified <see cref="GameStateTransition"/> is equal to the current <see cref="GameStateTransition"/>.
+        /// </summary>
+        /// <param name="rule">The <see cref="GameStateTransition"/> to compare with the current <see cref="GameStateTransition"/>.</param>
+        /// <returns><c>true</c> if the specified <see cref="GameStateTransition"/> is equal to the current
+        /// <see cref="GameStateTransition"/>; otherwise, <c>false</c>.</returns>
+        public bool Equals(GameStateTransition gameStateTransition)
+        {
+            return (TransitionFrom == gameStateTransition.TransitionFrom) &&
+                    (TransitionTo == gameStateTransition.TransitionTo);
         }
 
         #endregion

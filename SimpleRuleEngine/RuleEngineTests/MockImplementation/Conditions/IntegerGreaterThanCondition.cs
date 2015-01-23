@@ -1,16 +1,10 @@
-﻿using RuleEngine.Contracts;
+﻿using RuleEngine.Base;
+using RuleEngine.Contracts;
 
 namespace RuleEngineTests.MockImplementation.Conditions
 {
-    internal class IntegerGreaterThanCondition : ICondition
+    internal class IntegerGreaterThanCondition : BaseCondition<int>
     {
-        #region Fields
-
-        private readonly int _actual;
-        private readonly int _threshold;
-
-        #endregion
-
         #region Constructors
 
         /// <summary>
@@ -18,23 +12,20 @@ namespace RuleEngineTests.MockImplementation.Conditions
         /// </summary>
         /// <param name="threshold">The threshold value.</param>
         /// <param name="actual">The actual value.</param>
-        public IntegerGreaterThanCondition(int threshold, int actual)
-        {
-            _threshold = threshold;
-            _actual = actual;
-        }
+        public IntegerGreaterThanCondition(int threshold)
+            : base(threshold) { }
 
         #endregion
 
-        #region ICondition methods
+        #region ICondition<int> methods
 
         /// <summary>
         /// Determines whether this instance is satisfied.
         /// </summary>
         /// <returns></returns>
-        public bool IsSatisfied
+        public override bool IsSatisfied
         {
-            get { return _actual > _threshold; }
+            get { return Value > Threshold; }
         }
 
         #endregion

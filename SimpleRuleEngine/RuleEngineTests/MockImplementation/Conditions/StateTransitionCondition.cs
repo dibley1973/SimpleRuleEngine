@@ -1,18 +1,19 @@
 ﻿using RuleEngine.Base;
 using RuleEngine.Contracts;
+using RuleEngineTests.MockImplementation.Entities;
 
 namespace RuleEngineTests.MockImplementation.Conditions
 {
-    internal class IntegerEqualToCondition : BaseCondition<int>
+    public class StateTransitionCondition : BaseCondition<GameStateTransition>
     {
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="IntegerEqualToCondition"/> class.
+        /// Initializes a new instance of the <see cref="StateTransitionCondition"/> class.
         /// </summary>
-        /// <param name="threshold">The threshold value.</param>
-        public IntegerEqualToCondition(int threshold)
-            : base(threshold) {}
+        /// <param name="threshold">The threshold.</param>
+        public StateTransitionCondition(GameStateTransition threshold)
+            : base(threshold) { }
 
         #endregion
 
@@ -24,7 +25,7 @@ namespace RuleEngineTests.MockImplementation.Conditions
         /// <returns></returns>
         public override bool IsSatisfied
         {
-            get { return Value == Threshold; }
+            get { return Value.Equals(Threshold); }
         }
 
         #endregion

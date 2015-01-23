@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\BaseCondition.cs" />
     <Compile Include="Base\BaseRule.cs" />
     <Compile Include="Contracts\ICondition.cs" />
     <Compile Include="Contracts\IRule.cs" />

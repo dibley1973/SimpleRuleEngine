@@ -11,17 +11,12 @@ namespace RuleEngineTests.MockImplementation.Rules
         /// <summary>
         /// Initializes a new instance of the <see cref="StateTransitionRule"/> class.
         /// </summary>
-        public StateTransitionRule() : base() { }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StateTransitionRule"/> class.
-        /// </summary>
         /// <param name="threshold">The threshold.</param>
         /// <param name="actual">The actual.</param>
-        public StateTransitionRule(GameStateTransition threshold, GameStateTransition actual)
-            : this()
+        public StateTransitionRule(GameStateTransition threshold)
+            : base(threshold)
         {
-            Initialize(threshold, actual);
+            Initialize();
         }
 
         #endregion
@@ -29,22 +24,18 @@ namespace RuleEngineTests.MockImplementation.Rules
         #region Methods
 
         /// <summary>
-        /// Initializes the object with the specified threshold and value.
+        /// Initializes the instance.
         /// </summary>
-        /// <param name="threshold">The threshold value to check value against.</param>
-        /// <param name="actual">The actualvalue to check.</param>
-        public override void Initialize(GameStateTransition threshold, GameStateTransition actual)
+        public override void Initialize()
         {
             // Clear any existing conditions
             Conditions.Clear();
 
             // Create our conditions
-            var condition1 = new IntegerEqualToCondition((int)threshold.TransitionFrom, (int)actual.TransitionFrom);
-            var condition2 = new IntegerEqualToCondition((int)threshold.TransitionTo, (int)actual.TransitionTo);
+            var condition1 = new StateTransitionCondition(Threshold);
 
             // ...and add them to our collection of conditions
             Conditions.Add(condition1);
-            Conditions.Add(condition2);
         }
 
         /// <summary>

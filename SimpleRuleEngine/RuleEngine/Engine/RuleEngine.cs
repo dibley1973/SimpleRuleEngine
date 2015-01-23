@@ -10,6 +10,14 @@ namespace RuleEngine.Engine
         #region Properties
 
         /// <summary>
+        /// Gets or sets the actual value.
+        /// </summary>
+        /// <value>
+        /// The actual value.
+        /// </value>
+        public T ActualValue { get; set; }
+
+        /// <summary>
         /// Gets (or privately sets) the set of rules.
         /// </summary>
         /// <value>The rules.</value>
@@ -20,12 +28,19 @@ namespace RuleEngine.Engine
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GameStateTransitionRuleEngine"/> class
+        /// Initializes a new instance of the <see cref="GameStateTransitionRuleEngine" /> class
         /// with an empty rule set.
         /// </summary>
         public RuleEngine()
-            : this(new List<IRule<T>>())
-        { }
+            : this(new List<IRule<T>>()) {}
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GameStateTransitionRuleEngine" /> class
+        /// with an empty rule set.
+        /// </summary>
+        /// <param name="actualValue">The actual value.</param>
+        public RuleEngine(T actualValue)
+            : this(new List<IRule<T>>(), actualValue) {}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameStateTransitionRuleEngine"/> class
@@ -34,7 +49,19 @@ namespace RuleEngine.Engine
         /// <param name="ruleSet"> the rule set to initialise with.</param>
         public RuleEngine(List<IRule<T>> ruleSet)
         {
-            this.RuleSet = ruleSet;
+            RuleSet = ruleSet;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GameStateTransitionRuleEngine"/> class
+        /// with the specified rule set.
+        /// </summary>
+        /// <param name="ruleSet"> the rule set to initialise with.</param>
+        /// <param name="actualValue">The actual value.</param>
+        public RuleEngine(List<IRule<T>> ruleSet, T actualvalue)
+            : this(ruleSet)
+        {
+            ActualValue = actualvalue;
         }
 
         #endregion
@@ -88,6 +115,7 @@ namespace RuleEngine.Engine
             for (int index = 0; index < RuleSet.Count; index += 1)
             {
                 IRule<T> currentRule = RuleSet[index];
+                currentRule.Value = ActualValue;
                 if (!currentRule.MatchConditions())
                 {
                     result = false;
@@ -112,6 +140,7 @@ namespace RuleEngine.Engine
             for (int index = 0; index < RuleSet.Count; index += 1)
             {
                 IRule<T> currentRule = RuleSet[index];
+                currentRule.Value = ActualValue;
                 if (currentRule.MatchConditions())
                 {
                     result = true;
