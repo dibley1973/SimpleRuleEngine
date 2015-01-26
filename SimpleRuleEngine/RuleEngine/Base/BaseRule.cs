@@ -89,7 +89,8 @@ namespace RuleEngine.Base
         protected bool MatchAllConditions()
         {
             // We could use a lambda for ease, however in my case this project 
-            // is to be used by Unity 3D so we will need to 
+            // is to be used by Unity 3D so we will need to be aware that some 
+            // Linq features are not available in all target langauges.
             //return Conditions.All(rule => rule.IsSatisfied);
 
             // Assume the conditions are all valid until proven otherwise
@@ -122,7 +123,8 @@ namespace RuleEngine.Base
         protected bool MatchesAnyCondition()
         {
             // We could use a lambda for ease, however in my case this project 
-            // is to be used by Unity 3D so we will need to 
+            // is to be used by Unity 3D so we will need to be aware that some 
+            // Linq features are not available in all target langauges.
             //return Conditions.Any(rule => rule.IsSatisfied);
 
             // Assume the conditions are NOT valid until proven otherwise
