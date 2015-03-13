@@ -66,7 +66,7 @@ namespace RuleEngine.Base
         /// <summary>
         /// Initializes this instance.
         /// </summary>
-        public virtual void Initialize() { }
+        public abstract void Initialize();
 
         /// <summary>
         /// Matches the conditions. 

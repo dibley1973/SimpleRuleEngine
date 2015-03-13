@@ -28,14 +28,14 @@ namespace RuleEngine.Engine
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GameStateTransitionRuleEngine" /> class
+        /// Initializes a new instance of the <see cref="RuleEngine" /> class
         /// with an empty rule set.
         /// </summary>
         public RuleEngine()
             : this(new List<IRule<T>>()) {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GameStateTransitionRuleEngine" /> class
+        /// Initializes a new instance of the <see cref="RuleEngine" /> class
         /// with an empty rule set.
         /// </summary>
         /// <param name="actualValue">The actual value.</param>
@@ -43,7 +43,7 @@ namespace RuleEngine.Engine
             : this(new List<IRule<T>>(), actualValue) {}
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GameStateTransitionRuleEngine"/> class
+        /// Initializes a new instance of the <see cref="RuleEngine"/> class
         /// with the specified rule set.
         /// </summary>
         /// <param name="ruleSet"> the rule set to initialise with.</param>
@@ -53,15 +53,15 @@ namespace RuleEngine.Engine
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GameStateTransitionRuleEngine"/> class
+        /// Initializes a new instance of the <see cref="RuleEngine"/> class
         /// with the specified rule set.
         /// </summary>
         /// <param name="ruleSet"> the rule set to initialise with.</param>
         /// <param name="actualValue">The actual value.</param>
-        public RuleEngine(List<IRule<T>> ruleSet, T actualvalue)
+        public RuleEngine(List<IRule<T>> ruleSet, T actualValue)
             : this(ruleSet)
         {
-            ActualValue = actualvalue;
+            ActualValue = actualValue;
         }
 
         #endregion

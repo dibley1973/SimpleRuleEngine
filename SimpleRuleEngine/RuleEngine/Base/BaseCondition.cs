@@ -24,7 +24,7 @@ namespace RuleEngine.Base
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EqualsCondition{T}"/> class.
+        /// Initializes a new instance of the <see cref="BaseCondition{T}"/> class.
         /// </summary>
         /// <param name="threshold">The threshold value.</param>
         protected BaseCondition(T threshold)
